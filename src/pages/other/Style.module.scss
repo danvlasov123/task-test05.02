@@ -1,0 +1,33 @@
+.section h2 {
+  font-size: 44px;
+  span {
+    font-size: 126px;
+    color: blue;
+  }
+}
+.container {
+  a {
+    color: blue;
+    display: flex;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    svg {
+      margin-right: 5px;
+      margin-top: 4px;
+    }
+  }
+  h1 {
+    font-size: 140px;
+    text-transform: uppercase;
+    background: radial-gradient(
+      circle,
+      rgba(238, 174, 202, 1) 0%,
+      rgba(148, 187, 233, 1) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #0b2349;
+    display: table;
+    margin: 20px auto;
+  }
+}

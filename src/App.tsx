@@ -1,25 +1,61 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {Routes, Route} from 'react-router-dom'
+import {ROUTES} from './data/routes' 
 
-function App() {
+import Header from './components/header/Header'
+import Wrapper from './components/wrapper/Wrapper'
+import Drawer from './components/drawer/Drawer'
+//pages
+import AuthPage from './pages/Auth/AuthPage'
+import ChangePassPage from './pages/Auth/ChangePassPage'
+import Default from './pages/Default/DefaultPage'
+import NotFound from './pages/other/NotFound'
+import NotAuthPage from './pages/other/NotAuthPage'
+import { useAppSelector } from './store/hooks';
+const App: React.FC = (): JSX.Element => {
+  const {isAuth, isAuthCorrect} = useAppSelector((state) => state.common)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+     {isAuth && <Header/>}
+     {isAuth && <Drawer />}
+      <Wrapper >
+        <Routes>
+        {ROUTES.map((item) => { 
+          if (isAuth) {
+            switch (item.link) {
+              case 'auth': 
+              return <Route key={item.id} path={item.staticPath} element={<AuthPage/>}/>
+            case 'change_pass':
+              return <Route key={item.id} path={item.staticPath} element={<ChangePassPage/>}/>
+              case null: 
+              return <Route key={item.id} path={item.staticPath} element={<Default/>}/>
+            } 
+          } else {
+            if (isAuthCorrect) {
+              switch (item.link) {
+                case 'auth': 
+                return <Route key={item.id} path={item.staticPath} element={<AuthPage/>}/>
+                case 'change_pass':
+                  return <Route key={item.id} path={item.staticPath} element={<ChangePassPage/>}/>
+                  case null: 
+                  return <Route key={item.id} path={item.staticPath} element={<NotAuthPage/>}/>
+                }
+              } else {
+                switch (item.link) {
+                  case 'auth': 
+                  return <Route key={item.id} path={item.staticPath} element={<AuthPage/>}/>
+                  case 'change_pass':
+                    return <Route key={item.id} path={item.staticPath} element={<NotAuthPage/>}/>
+                    case null: 
+                    return <Route key={item.id} path={item.staticPath} element={<NotAuthPage/>}/>
+                  }
+              }
+        }
+        })}
+        <Route path='*' element={<NotFound/>}/>
+        </Routes>
+      </Wrapper>
+    </>
   );
 }
 

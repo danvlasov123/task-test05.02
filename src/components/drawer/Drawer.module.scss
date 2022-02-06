@@ -1,0 +1,47 @@
+.drawer {
+  position: fixed;
+  width: 260px;
+  height: 100vh;
+  top: 60px;
+  z-index: 1050;
+  transition: transform 0.3s linear;
+  transform: translate(-100%, 0);
+  background: inherit;
+  padding: 10px 0;
+  &__container {
+    display: flex;
+    flex-direction: column;
+    a {
+      height: 40px;
+      margin: 3px 0;
+      border-end-end-radius: 20px;
+      border-start-end-radius: 20px;
+      display: flex;
+      align-items: center;
+      svg {
+        margin: 0 10px;
+      }
+      span {
+        margin-top: 3px;
+      }
+    }
+    &__button_signout {
+      border: none;
+      cursor: pointer;
+      height: 35px;
+      width: 200px;
+      border-radius: 6px;
+      background: blue;
+      color: white;
+      margin: 10px;
+      transition: opacity 0.2s linear;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+}
+
+.active {
+  transform: none;
+}
